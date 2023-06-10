@@ -1,40 +1,86 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {
   const [active, setActive] = useState(true);
 
+  const activeClass = "ps-6 p-3 border-l-4 border-l-indigo-700 bg-[#DCDDDF]";
+  const inActiveClass = "ps-6 p-3";
+
   const menuItems = (
     <>
       <li>
-        <a className="ps-6 p-3 border-l-4 border-l-indigo-700 bg-[#DCDDDF]">
+        <NavLink
+          to={"/dashboard/home"}
+          className={({ isActive }) => (isActive ? activeClass : inActiveClass)}
+        >
           Dashboard
-        </a>
+        </NavLink>
       </li>
       <li>
-        <a className="ps-6 p-3">Invoices</a>
+        <NavLink
+          to={"/dashboard/invoices"}
+          className={({ isActive }) => (isActive ? activeClass : inActiveClass)}
+        >
+          Invoices
+        </NavLink>
       </li>
       <li>
-        <a className="ps-6 p-3">Create Invoice</a>
+        <NavLink
+          to={"/dashboard/create-invoice"}
+          className={({ isActive }) => (isActive ? activeClass : inActiveClass)}
+        >
+          Create Invoice
+        </NavLink>
       </li>
       <li>
-        <a className="ps-6 p-3">Products</a>
+        <NavLink
+          to={"/dashboard/products"}
+          className={({ isActive }) => (isActive ? activeClass : inActiveClass)}
+        >
+          Products
+        </NavLink>
       </li>
       <li>
-        <a className="ps-6 p-3">Customers</a>
+        <NavLink
+          to={"/dashboard/customers"}
+          className={({ isActive }) => (isActive ? activeClass : inActiveClass)}
+        >
+          Customers
+        </NavLink>
       </li>
       <li>
-        <a className="ps-6 p-3">Tasks</a>
+        <NavLink
+          to={"/dashboard/tasks"}
+          className={({ isActive }) => (isActive ? activeClass : inActiveClass)}
+        >
+          Tasks
+        </NavLink>
       </li>
       <li>
-        <a className="ps-6 p-3">Calendar</a>
+        <NavLink
+          to={"/dashboard/calendar"}
+          className={({ isActive }) => (isActive ? activeClass : inActiveClass)}
+        >
+          Calendar
+        </NavLink>
       </li>
       <li>
-        <a className="ps-6 p-3">Profile</a>
+        <NavLink
+          to={"/dashboard/profile"}
+          className={({ isActive }) => (isActive ? activeClass : inActiveClass)}
+        >
+          Profile
+        </NavLink>
       </li>
       <li>
-        <a className="ps-6 p-3">Logout</a>
+        <NavLink
+          to={"/dashboard"}
+          className={({ isActive }) => (isActive ? activeClass : inActiveClass)}
+        >
+          Logout
+        </NavLink>
       </li>
     </>
   );

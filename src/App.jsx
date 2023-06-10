@@ -7,6 +7,12 @@ import DashboardLayout from "./components/Layout/DashboardLayout";
 import MainLayout from "./components/Layout/MainLayout.jsx";
 import DashboardHome from "./Pages/DashboardHome/DashboardHome";
 import Invoices from "./Pages/Invoice/Invoices";
+import CreateInvoice from "./Pages/CreateInvoice/CreateInvoice";
+import Products from "./Pages/Products/Products";
+import Customers from "./Pages/Customers/Customers";
+import Tasks from "./Pages/Task/Tasks";
+import Calendar from "./Pages/Calendar/Calendar";
+import Profile from "./Pages/Profile/Profile";
 
 function App() {
   const router = createBrowserRouter([
@@ -29,7 +35,7 @@ function App() {
       element: <DashboardLayout />,
       children: [
         {
-          path: "/dashboard",
+          path: "/dashboard/home",
           element: <DashboardHome />,
         },
         {
@@ -37,12 +43,28 @@ function App() {
           element: <Invoices />,
         },
         {
+          path: "/dashboard/create-invoice",
+          element: <CreateInvoice />,
+        },
+        {
           path: "/dashboard/products",
-          element: <DashboardHome />,
+          element: <Products />,
         },
         {
           path: "/dashboard/customers",
-          element: <DashboardHome />,
+          element: <Customers />,
+        },
+        {
+          path: "/dashboard/tasks",
+          element: <Tasks />,
+        },
+        {
+          path: "/dashboard/calendar",
+          element: <Calendar />,
+        },
+        {
+          path: "/dashboard/profile",
+          element: <Profile />,
         },
       ],
     },
