@@ -86,7 +86,7 @@ const DashboardLayout = () => {
   );
   return (
     <>
-      <div className="hidden md:flex">
+      <div className="hidden md:flex z-40">
         {/* sidebar */}
         <div
           className={`min-h-screen bg-base-200 fixed ${!active && "hidden"}`}
@@ -103,7 +103,7 @@ const DashboardLayout = () => {
         {/* main content */}
         <div className={`w-full ${active && "ml-64"}`}>
           {/* navbar */}
-          <nav className="sticky top-0 border-b bg-base-100 w-full flex">
+          <nav className="sticky top-0 border-b bg-base-100 w-full flex z-20">
             <button className="px-2" onClick={() => setActive(!active)}>
               <i className="fas fa-bars text-2xl text-gray-600"></i>
             </button>
@@ -146,7 +146,7 @@ const DashboardLayout = () => {
           </nav>
           {/* navbar end */}
           {/* Page Content */}
-          <div className="">
+          <div className="z-50">
             <Outlet />
           </div>
         </div>
@@ -209,7 +209,7 @@ const DashboardLayout = () => {
               <Outlet />
             </div>
           </div>
-          <div className="drawer-side">
+          <div className="drawer-side min-h-screen">
             <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
             <ul className="menu p-0 w-64 h-full bg-base-200 text-base-content [&_li>*]:rounded-none">
               {/* Sidebar content here */}
