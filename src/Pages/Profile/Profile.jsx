@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   return (
@@ -15,7 +16,9 @@ const Profile = () => {
       </div>
       <div className="flex items-center justify-between">
         <h2 className="text-3xl underline">My Profile</h2>
-        <button className="btn btn-primary">Update Profile</button>
+        <Link to={"/dashboard/update-profile"} className="btn btn-primary">
+          Update Profile
+        </Link>
       </div>
       <div className="bg-base-100 rounded p-5 mt-2">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-5 py-2">
@@ -56,6 +59,14 @@ const Profile = () => {
           </div>
           <div className="md:col-span-9">
             <p className="">Sports Zone</p>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-5  py-2">
+          <div className="md:col-span-3">
+            <h4 className="font-bold">Store FB Page:</h4>
+          </div>
+          <div className="md:col-span-9">
+            <p className="">fb/store</p>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-12 gap-5  py-2">

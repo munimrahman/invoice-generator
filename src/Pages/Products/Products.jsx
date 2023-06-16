@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Products = () => {
   return (
@@ -15,7 +16,9 @@ const Products = () => {
       </div>
       <div className="flex items-center justify-between">
         <h2 className="text-3xl underline">Products</h2>
-        <button className="btn btn-primary">Add Product</button>
+        <Link to={"/dashboard/add-product"} className="btn btn-primary">
+          Add Product
+        </Link>
       </div>
       <div className="overflow-x-auto bg-base-100 rounded p-2 mt-2">
         <table className="table table-zebra w-full">

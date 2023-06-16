@@ -1,6 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
-
 import Home from "./Pages/Home/Home";
 import About from "./Pages/About/About";
 import DashboardLayout from "./components/Layout/DashboardLayout";
@@ -13,6 +12,8 @@ import Customers from "./Pages/Customers/Customers";
 import Tasks from "./Pages/Task/Tasks";
 import Calendar from "./Pages/Calendar/Calendar";
 import Profile from "./Pages/Profile/Profile";
+import UpdateProfile from "./Pages/Profile/UpdateProfile";
+import AddProduct from "./Pages/Products/AddProduct";
 
 function App() {
   const router = createBrowserRouter([
@@ -51,6 +52,10 @@ function App() {
           element: <Products />,
         },
         {
+          path: "/dashboard/add-product",
+          element: <AddProduct />,
+        },
+        {
           path: "/dashboard/customers",
           element: <Customers />,
         },
@@ -65,6 +70,10 @@ function App() {
         {
           path: "/dashboard/profile",
           element: <Profile />,
+        },
+        {
+          path: "/dashboard/update-profile",
+          element: <UpdateProfile />,
         },
       ],
     },
