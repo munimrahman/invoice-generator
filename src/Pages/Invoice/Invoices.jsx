@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Invoices = () => {
   return (
@@ -9,13 +10,14 @@ const Invoices = () => {
           <li>
             <a>Dashboard</a>
           </li>
-
           <li>Invoices</li>
         </ul>
       </div>
       <div className="flex items-center justify-between">
         <h2 className="text-3xl underline">Invoices</h2>
-        <button className="btn btn-primary">Create Invoice</button>
+        <Link to={"/dashboard/create-invoice"} className="btn btn-primary">
+          Create Invoice
+        </Link>
       </div>
       <div className="overflow-x-auto bg-base-100 rounded p-2 mt-2">
         <table className="table table-zebra w-full">

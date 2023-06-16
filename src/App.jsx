@@ -14,6 +14,7 @@ import Calendar from "./Pages/Calendar/Calendar";
 import Profile from "./Pages/Profile/Profile";
 import UpdateProfile from "./Pages/Profile/UpdateProfile";
 import AddProduct from "./Pages/Products/AddProduct";
+import AddCustomer from "./Pages/Customers/AddCustomer";
 
 function App() {
   const router = createBrowserRouter([
@@ -58,6 +59,10 @@ function App() {
         {
           path: "/dashboard/customers",
           element: <Customers />,
+        },
+        {
+          path: "/dashboard/add-customer",
+          element: <AddCustomer />,
         },
         {
           path: "/dashboard/tasks",

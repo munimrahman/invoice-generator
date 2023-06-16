@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const AddProduct = () => {
+const AddCustomer = () => {
   return (
     <div className="px-8 py-3 bg-[#F1F5F9] min-h-screen">
       <div className="text-sm breadcrumbs">
@@ -11,13 +11,13 @@ const AddProduct = () => {
             <Link to={"/dashboard/home"}>Dashboard</Link>
           </li>
           <li>
-            <Link to={"/dashboard/products"}>Products</Link>
+            <Link to={"/dashboard/customers"}>Customers</Link>
           </li>
-          <li>Add Product</li>
+          <li>Add Customer</li>
         </ul>
       </div>
       <div className="flex items-center justify-between pb-2">
-        <h2 className="text-3xl underline">Add Product</h2>
+        <h2 className="text-3xl underline">Add Customer</h2>
       </div>
       <div className="bg-base-100 rounded p-5 mt-2">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
@@ -28,27 +28,17 @@ const AddProduct = () => {
               </label>
               <input
                 type="text"
-                placeholder="Cricket Bat"
+                placeholder="Jhon Snow"
                 className="input input-bordered focus:outline-none w-full"
               />
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="">Product Code:</span>
+                <span className="">Email:</span>
               </label>
               <input
                 type="text"
-                placeholder="P001"
-                className="input input-bordered focus:outline-none w-full"
-              />
-            </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="">Category:</span>
-              </label>
-              <input
-                type="text"
-                placeholder="Cricket"
+                placeholder="jhon@gmail.com"
                 className="input input-bordered focus:outline-none w-full"
               />
             </div>
@@ -57,31 +47,21 @@ const AddProduct = () => {
           <div className="col-span-6">
             <div className="form-control">
               <label className="label">
-                <span className="">Price:</span>
+                <span className="">Mobile:</span>
               </label>
               <input
                 type="text"
-                placeholder="250"
+                placeholder="01926451457"
                 className="input input-bordered focus:outline-none w-full"
               />
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="">Product Photo URL:</span>
+                <span className="">Address:</span>
               </label>
               <input
                 type="text"
-                placeholder="https://www.web.com/store.photo"
-                className="input input-bordered focus:outline-none w-full"
-              />
-            </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="">Stock:</span>
-              </label>
-              <input
-                type="text"
-                placeholder="13"
+                placeholder="Mirpur, Dhaka"
                 className="input input-bordered focus:outline-none w-full"
               />
             </div>
@@ -94,4 +74,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default AddCustomer;
