@@ -38,13 +38,13 @@ const languages = [
   },
 ];
 
-const AutoComplete = () => {
-  const [value, setValue] = useState("");
+const AutoComplete = ({ index, value, setValue, items }) => {
   const [suggestions, setSuggestions] = useState([]);
 
   const onChange = (event, { newValue }) => {
-    setValue(newValue);
+    setValue(index, "name", newValue);
   };
+
   const onSuggestionsFetchRequested = ({ value }) => {
     setSuggestions(() => getSuggestions(value));
   };

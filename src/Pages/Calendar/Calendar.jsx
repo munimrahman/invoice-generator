@@ -5,9 +5,7 @@ import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
 import timeGridPlugin from "@fullcalendar/timegrid"; // a plugin!
 import listPlugin from "@fullcalendar/list"; // needed for dayClick
-import AutocompleteInput from "./AutoTest";
-import MyCombobox from "./AutoHead";
-import AutoDaisy from "./AutoDaisy";
+// import AutocompleteInput from "./AutoTest";
 
 const Calendar = () => {
   const [currentEvents, setCurrentEvents] = useState([]);
@@ -50,9 +48,9 @@ const Calendar = () => {
     email: "",
     address: "",
   });
-
   const [invoiceItems, setInvoiceItems] = useState([]);
   const [discount, setDiscount] = useState(0);
+  const [showPrint, setShowPrint] = useState(false);
 
   const addInvoiceItem = () => {
     setInvoiceItems([
@@ -91,6 +89,11 @@ const Calendar = () => {
 
   const saveData = () => {
     console.log({ customer, invoiceItems, discount });
+    window.print();
+  };
+
+  const togglePrintView = () => {
+    setShowPrint(!showPrint);
   };
   return (
     <div className="p-5">
@@ -130,9 +133,10 @@ const Calendar = () => {
           ]}
         />
       </div> */}
-      <AutocompleteInput options={options} />
-      <AutoDaisy value={value} onChange={setValue} items={countries} />
-      <div className="bg-gray-100 min-h-screen">
+
+      <div
+        className={`bg-gray-100 min-h-screen ${showPrint ? "print-mode" : ""}`}
+      >
         <header className="bg-white py-4 shadow">
           <div className="container mx-auto px-4">
             <h1 className="text-2xl font-semibold">Invoice App</h1>
@@ -236,6 +240,12 @@ const Calendar = () => {
             onClick={saveData}
           >
             Save and Log Data
+          </button>
+          <button
+            className="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded ml-4"
+            onClick={togglePrintView}
+          >
+            {showPrint ? "Exit Print View" : "Print"}
           </button>
         </main>
         <footer className="bg-gray-200 py-4">
