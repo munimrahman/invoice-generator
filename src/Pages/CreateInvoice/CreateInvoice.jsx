@@ -12,21 +12,39 @@ const customerInitialData = {
 };
 
 const initialInvoiceItems = [
-  { name: "", productCode: "", quantity: "", productPrice: "" },
+  { name: "", productCode: "", quantity: "", productPrice: "", amount: "" },
+  { name: "", productCode: "", quantity: "", productPrice: "", amount: "" },
+  { name: "", productCode: "", quantity: "", productPrice: "", amount: "" },
+  { name: "", productCode: "", quantity: "", productPrice: "", amount: "" },
 ];
 
+const todayDate = (addDay) => {
+  const date = new Date();
+  date.setDate(date.getDate() + addDay);
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  const formattedDate = `${year}-${month}-${day}`;
+
+  return formattedDate;
+};
+
 const CreateInvoice = () => {
-  const [value, setValue] = useState("");
-  const [customer, setCustomer] = useState();
+  const [note, setNote] = useState();
+  const [customer, setCustomer] = useState(customerInitialData);
   const [subTotal, setSubTotal] = useState(0);
   const [discount, setDiscount] = useState(0);
   const [total, setTotal] = useState(0);
+  const [date, setDate] = useState(todayDate(0));
+  const [dueDate, setDueDate] = useState(todayDate(2));
   const [invoiceItems, setInvoiceItems] = useState(initialInvoiceItems);
 
   const handleAddRow = () => {
     setInvoiceItems([
       ...invoiceItems,
-      { name: "", productCode: "", quantity: "", productPrice: "" },
+      { name: "", productCode: "", quantity: "", productPrice: "", amount: "" },
     ]);
   };
 
@@ -42,8 +60,16 @@ const CreateInvoice = () => {
     setInvoiceItems(updatedItems);
   };
 
+  const handleCustomerChange = (field, value) => {
+    setCustomer({ ...customer, [field]: value });
+  };
+
   const handleSubmit = () => {
     console.log(invoiceItems);
+    console.log(customer);
+    console.log(note);
+    console.log(subTotal, discount, total);
+    console.log(date, dueDate);
   };
 
   return (
@@ -75,24 +101,32 @@ const CreateInvoice = () => {
               type="text"
               placeholder="Name"
               className="input input-sm mb-1 input-bordered focus:outline-none w-full max-w-xs"
+              value={customer.name}
+              onChange={(e) => handleCustomerChange("name", e.target.value)}
             />
             <br />
             <input
               type="text"
               placeholder="Email"
               className="input input-sm mb-1 input-bordered focus:outline-none w-full max-w-xs"
+              value={customer.email}
+              onChange={(e) => handleCustomerChange("email", e.target.value)}
             />
             <br />
             <input
               type="text"
               placeholder="Mobile"
               className="input input-sm mb-1 input-bordered focus:outline-none w-full max-w-xs"
+              value={customer.mobile}
+              onChange={(e) => handleCustomerChange("mobile", e.target.value)}
             />
             <br />
             <input
               type="text"
               placeholder="Address"
               className="input input-sm input-bordered focus:outline-none w-full max-w-xs"
+              value={customer.address}
+              onChange={(e) => handleCustomerChange("address", e.target.value)}
             />
           </div>
           <div>
@@ -103,6 +137,8 @@ const CreateInvoice = () => {
               <input
                 type="date"
                 className="input input-sm mb-1 input-bordered focus:outline-none w-full max-w-xs"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
               />
             </div>
             <div className="">
@@ -112,6 +148,8 @@ const CreateInvoice = () => {
               <input
                 type="date"
                 className="input input-sm mb-1 input-bordered focus:outline-none w-full max-w-xs"
+                value={dueDate}
+                onChange={(e) => setDueDate(e.target.value)}
               />
             </div>
           </div>
@@ -149,7 +187,10 @@ const CreateInvoice = () => {
                         type="number"
                         placeholder="1"
                         className="input input-sm mb-1 input-bordered focus:outline-none w-16 max-w-xs ms-5 text-center"
-                        defaultValue={0}
+                        value={r.quantity}
+                        onChange={(e) =>
+                          handleProductChange(i, "quantity", e.target.value)
+                        }
                       />
                     </td>
                     <td>
@@ -158,6 +199,10 @@ const CreateInvoice = () => {
                         type="number"
                         placeholder="1"
                         className="input input-sm mb-1 input-bordered focus:outline-none w-16 max-w-xs ms-5 text-center"
+                        value={r.productPrice}
+                        onChange={(e) =>
+                          handleProductChange(i, "productPrice", e.target.value)
+                        }
                       />
                     </td>
                     <td>
@@ -166,6 +211,10 @@ const CreateInvoice = () => {
                         type="text"
                         placeholder="1"
                         className="input input-sm mb-1 input-bordered focus:outline-none w-20 max-w-xs ms-5 text-center"
+                        value={r.amount}
+                        onChange={(e) =>
+                          handleProductChange(i, "amount", e.target.value)
+                        }
                       />
                     </td>
                     <td>
@@ -196,6 +245,8 @@ const CreateInvoice = () => {
             <textarea
               className="textarea textarea-bordered focus:outline-none w-96 h-24"
               placeholder="Note: Any Notes About This Invoice"
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
             ></textarea>
           </div>
           <div className="flex flex-col items-end">
@@ -210,6 +261,8 @@ const CreateInvoice = () => {
                         type="text"
                         placeholder="$00"
                         className="input input-sm mb-1 input-bordered focus:outline-none w-32 max-w-xs ms-5"
+                        value={subTotal}
+                        onChange={(e) => setSubTotal(e.target.value)}
                       />
                     </td>
                   </tr>
@@ -221,6 +274,8 @@ const CreateInvoice = () => {
                         type="text"
                         placeholder="$00"
                         className="input input-sm mb-1 input-bordered focus:outline-none w-32 max-w-xs ms-5"
+                        value={discount}
+                        onChange={(e) => setDiscount(e.target.value)}
                       />
                     </td>
                   </tr>
@@ -232,6 +287,8 @@ const CreateInvoice = () => {
                         type="text"
                         placeholder="$00"
                         className="input input-sm mb-1 input-bordered focus:outline-none w-32 max-w-xs ms-5"
+                        value={total}
+                        onChange={(e) => setTotal(e.target.value)}
                       />
                     </td>
                   </tr>
