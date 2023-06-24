@@ -16,6 +16,7 @@ import UpdateProfile from "./Pages/Profile/UpdateProfile";
 import AddProduct from "./Pages/Products/AddProduct";
 import AddCustomer from "./Pages/Customers/AddCustomer";
 import EditProduct from "./Pages/Products/EditProduct";
+import EditCustomer from "./Pages/Customers/EditCustomer";
 
 function App() {
   const router = createBrowserRouter([
@@ -68,6 +69,10 @@ function App() {
         {
           path: "/dashboard/add-customer",
           element: <AddCustomer />,
+        },
+        {
+          path: "/dashboard/edit-customer/:id",
+          element: <EditCustomer />,
         },
         {
           path: "/dashboard/tasks",

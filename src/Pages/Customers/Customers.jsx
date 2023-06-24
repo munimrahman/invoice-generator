@@ -1,8 +1,16 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { Link } from "react-router-dom";
+import {
+  useDeleteCustomerMutation,
+  useGetCustomersQuery,
+} from "../../features/customer/customerApi";
 
 const Customers = () => {
+  const { data: { data: { count, customers = [] } = {} } = {} } =
+    useGetCustomersQuery();
+  const [deleteProduct] = useDeleteCustomerMutation();
+
   return (
     <div className="px-8 py-3 bg-[#F1F5F9] min-h-screen">
       <div className="text-sm breadcrumbs">
@@ -33,21 +41,27 @@ const Customers = () => {
             </tr>
           </thead>
           <tbody>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((r, i) => (
-              <tr key={r}>
+            {customers.map(({ _id, name, email, mobile, address }, i) => (
+              <tr key={_id}>
                 <th>{i + 1}</th>
                 <td>
-                  <h3 className="font-bold">Munim Rahman</h3>
+                  <h3 className="font-bold">{name}</h3>
                 </td>
-                <td>01547845269</td>
-                <td>munim@gmail.com</td>
-                <td>Banaripara, Barishal</td>
+                <td>{mobile}</td>
+                <td>{email}</td>
+                <td>{address}</td>
                 <th className="text-center">
-                  <span className="py-2 px-3 me-2 rounded bg-green-200 hover:cursor-pointer">
+                  <Link
+                    to={`/dashboard/edit-customer/${_id}`}
+                    className="py-2 px-3 me-2 rounded bg-green-200 hover:cursor-pointer"
+                  >
                     <i className="fas fa-edit text-green-800"></i>
-                  </span>
+                  </Link>
 
-                  <span className="py-2 px-3 rounded bg-red-200 hover:cursor-pointer">
+                  <span
+                    onClick={() => deleteProduct(_id)}
+                    className="py-2 px-3 rounded bg-red-200 hover:cursor-pointer"
+                  >
                     <i className="fas fa-trash-alt text-red-600" />
                   </span>
                 </th>

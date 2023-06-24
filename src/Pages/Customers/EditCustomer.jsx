@@ -1,19 +1,31 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAddCustomerMutation } from "../../features/customer/customerApi";
+import React, { useEffect, useMemo, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  useEditCustomerMutation,
+  useGetSingleCustomerQuery,
+} from "../../features/customer/customerApi";
 
-const AddCustomer = () => {
-  const initialState = {
-    name: "",
-    email: "",
-    mobile: "",
-    address: "",
-  };
+const EditCustomer = () => {
+  const { id } = useParams();
+  const {
+    data: { data: { _id, name, mobile, email, address } = {} } = {},
+    refetch,
+  } = useGetSingleCustomerQuery(id);
+
+  const initialState = useMemo(
+    () => ({ name, email, mobile, address }),
+    [name, email, mobile, address]
+  );
 
   const [customerData, setCustomerData] = useState(initialState);
-  const [addCustomer, { isSuccess }] = useAddCustomerMutation();
+  const [editCustomer, { isSuccess }] = useEditCustomerMutation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setCustomerData(initialState);
+    refetch();
+  }, [initialState, refetch]);
 
   const handleChange = (e) => {
     const data = customerData;
@@ -23,8 +35,8 @@ const AddCustomer = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addCustomer(customerData);
-    alert("Customer added successfully");
+    editCustomer({ id: _id, data: customerData });
+    alert("Customer Edited successfully");
     setCustomerData(initialState);
     navigate(-1);
   };
@@ -43,7 +55,7 @@ const AddCustomer = () => {
         </ul>
       </div>
       <div className="flex items-center justify-between pb-2">
-        <h2 className="text-3xl underline">Add Customer</h2>
+        <h2 className="text-3xl underline">Edit Customer</h2>
       </div>
       <div className="bg-base-100 rounded p-5 mt-2">
         <form onSubmit={handleSubmit}>
@@ -60,7 +72,6 @@ const AddCustomer = () => {
                   value={customerData.name}
                   name="name"
                   onChange={handleChange}
-                  required
                 />
               </div>
               <div className="form-control">
@@ -74,7 +85,6 @@ const AddCustomer = () => {
                   value={customerData.email}
                   name="email"
                   onChange={handleChange}
-                  required
                 />
               </div>
             </div>
@@ -91,7 +101,6 @@ const AddCustomer = () => {
                   value={customerData.mobile}
                   name="mobile"
                   onChange={handleChange}
-                  required
                 />
               </div>
               <div className="form-control">
@@ -105,7 +114,6 @@ const AddCustomer = () => {
                   value={customerData.address}
                   name="address"
                   onChange={handleChange}
-                  required
                 />
               </div>
             </div>
@@ -122,4 +130,4 @@ const AddCustomer = () => {
   );
 };
 
-export default AddCustomer;
+export default EditCustomer;
