@@ -1,20 +1,41 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useAddProductMutation } from "../../features/products/productsApi";
+import React, { useEffect, useMemo, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import {
+  useEditProductMutation,
+  useGetSingleProductQuery,
+} from "../../features/products/productsApi";
 
-const initialState = {
-  name: "",
-  productCode: "",
-  category: "",
-  price: "",
-  photo: "",
-  stock: "",
-};
+const EditProduct = () => {
+  const { id } = useParams();
+  const {
+    data: {
+      data: { name, productCode, category, price, photo, stock } = {},
+    } = {},
+    isLoading: isProductLoading,
+    isError: isProductError,
+    refetch,
+  } = useGetSingleProductQuery(id);
 
-const AddProduct = () => {
-  const [productData, setProductData] = useState(initialState);
-  const [addProduct, { isLoading, isError }] = useAddProductMutation();
+  const initialState = useMemo(
+    () => ({
+      name,
+      productCode,
+      category,
+      price,
+      photo,
+      stock,
+    }),
+    [name, productCode, category, price, photo, stock]
+  );
+
+  const [productData, setProductData] = useState({});
+  const [editProduct, { isLoading, isError }] = useEditProductMutation();
+
+  useEffect(() => {
+    setProductData(initialState);
+    refetch();
+  }, [initialState, refetch]);
 
   const handleChange = (e) => {
     const data = productData;
@@ -24,13 +45,19 @@ const AddProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addProduct(productData);
+    editProduct({ id, data: productData });
     if (!isLoading && !isError) {
-      alert("Product added");
+      alert("Product Edit Successfully!");
       setProductData({ ...initialState });
     }
   };
 
+  let content = null;
+  if (isProductLoading) {
+    content = <p>Loading</p>;
+  } else if (!isProductLoading && !isProductError) {
+    content = <></>;
+  }
   return (
     <div className="px-8 py-3 bg-[#F1F5F9] min-h-screen">
       <div className="text-sm breadcrumbs">
@@ -41,11 +68,11 @@ const AddProduct = () => {
           <li>
             <Link to={"/dashboard/products"}>Products</Link>
           </li>
-          <li>Add Product</li>
+          <li>Edit Product</li>
         </ul>
       </div>
       <div className="flex items-center justify-between pb-2">
-        <h2 className="text-3xl underline">Add Product</h2>
+        <h2 className="text-3xl underline">Edit Product</h2>
       </div>
       <div className="bg-base-100 rounded p-5 mt-2">
         <form onSubmit={handleSubmit}>
@@ -150,4 +177,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;

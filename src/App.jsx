@@ -15,6 +15,7 @@ import Profile from "./Pages/Profile/Profile";
 import UpdateProfile from "./Pages/Profile/UpdateProfile";
 import AddProduct from "./Pages/Products/AddProduct";
 import AddCustomer from "./Pages/Customers/AddCustomer";
+import EditProduct from "./Pages/Products/EditProduct";
 
 function App() {
   const router = createBrowserRouter([
@@ -55,6 +56,10 @@ function App() {
         {
           path: "/dashboard/add-product",
           element: <AddProduct />,
+        },
+        {
+          path: "/dashboard/edit-product/:id",
+          element: <EditProduct />,
         },
         {
           path: "/dashboard/customers",

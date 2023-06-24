@@ -12,10 +12,7 @@ const customerInitialData = {
 };
 
 const initialInvoiceItems = [
-  { name: "", productCode: "", quantity: "", productPrice: "", amount: "" },
-  { name: "", productCode: "", quantity: "", productPrice: "", amount: "" },
-  { name: "", productCode: "", quantity: "", productPrice: "", amount: "" },
-  { name: "", productCode: "", quantity: "", productPrice: "", amount: "" },
+  { name: "", productCode: "", quantity: 1, productPrice: "", amount: "" },
 ];
 
 const todayDate = (addDay) => {
