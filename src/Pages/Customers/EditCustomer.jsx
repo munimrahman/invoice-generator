@@ -24,8 +24,11 @@ const EditCustomer = () => {
 
   useEffect(() => {
     setCustomerData(initialState);
+  }, [initialState]);
+
+  useEffect(() => {
     refetch();
-  }, [initialState, refetch]);
+  }, [refetch]);
 
   const handleChange = (e) => {
     const data = customerData;

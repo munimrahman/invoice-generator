@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import AutoComplete from "../../components/AutoComplete/AutoComplete";
+import { useAddInvoiceMutation } from "../../features/invoice/invoiceApi";
 
 const countries = ["Africa", "Armenia", "Canada", "United States"];
 
@@ -12,7 +13,13 @@ const customerInitialData = {
 };
 
 const initialInvoiceItems = [
-  { name: "", productCode: "", quantity: 1, productPrice: "", amount: "" },
+  {
+    name: "Product 1",
+    productCode: "P001",
+    quantity: 1,
+    productPrice: 250,
+    amount: 250,
+  },
 ];
 
 const todayDate = (addDay) => {
@@ -29,6 +36,7 @@ const todayDate = (addDay) => {
 };
 
 const CreateInvoice = () => {
+  const [addInvoice, { isSuccess, isError }] = useAddInvoiceMutation();
   const [note, setNote] = useState();
   const [customer, setCustomer] = useState(customerInitialData);
   const [subTotal, setSubTotal] = useState(0);
@@ -41,7 +49,13 @@ const CreateInvoice = () => {
   const handleAddRow = () => {
     setInvoiceItems([
       ...invoiceItems,
-      { name: "", productCode: "", quantity: "", productPrice: "", amount: "" },
+      {
+        name: "Product 2",
+        productCode: "P002",
+        quantity: 2,
+        productPrice: 20,
+        amount: 40,
+      },
     ]);
   };
 
@@ -62,11 +76,16 @@ const CreateInvoice = () => {
   };
 
   const handleSubmit = () => {
-    console.log(invoiceItems);
-    console.log(customer);
-    console.log(note);
-    console.log(subTotal, discount, total);
-    console.log(date, dueDate);
+    const invoiceData = {
+      customer,
+      products: invoiceItems,
+      subTotal,
+      discount,
+      total,
+      date,
+      dueDate,
+    };
+    addInvoice(invoiceData);
   };
 
   return (
@@ -260,6 +279,7 @@ const CreateInvoice = () => {
                         className="input input-sm mb-1 input-bordered focus:outline-none w-32 max-w-xs ms-5"
                         value={subTotal}
                         onChange={(e) => setSubTotal(e.target.value)}
+                        required
                       />
                     </td>
                   </tr>
@@ -286,6 +306,7 @@ const CreateInvoice = () => {
                         className="input input-sm mb-1 input-bordered focus:outline-none w-32 max-w-xs ms-5"
                         value={total}
                         onChange={(e) => setTotal(e.target.value)}
+                        required
                       />
                     </td>
                   </tr>

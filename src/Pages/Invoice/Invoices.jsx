@@ -1,8 +1,15 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { Link } from "react-router-dom";
+import { useGetInvoicesQuery } from "../../features/invoice/invoiceApi";
 
 const Invoices = () => {
+  const {
+    data: { data: { count, orders = [] } = {} } = {},
+    isSuccess,
+    isError,
+  } = useGetInvoicesQuery();
+
   return (
     <div className="px-8 py-3 bg-[#F1F5F9] min-h-screen">
       <div className="text-sm breadcrumbs">
@@ -33,14 +40,14 @@ const Invoices = () => {
             </tr>
           </thead>
           <tbody>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((r, i) => (
-              <tr key={r}>
+            {orders?.map(({ _id, customer: { name } }, i) => (
+              <tr key={_id}>
                 <th>{i + 1}</th>
-                <td>INV00{r}</td>
-                <td>Munim Rahman</td>
+                <td>INV00{i + 1}</td>
+                <td>{name}</td>
                 <td>01548726934</td>
                 <td>254</td>
-                {r % 2 === 0 ? (
+                {i % 2 === 0 ? (
                   <td>
                     <span className="bg-green-100 font-bold p-1 rounded text-green-700 text-xs">
                       PAID
@@ -55,7 +62,7 @@ const Invoices = () => {
                 )}
                 <th className="text-center">
                   <span className="py-2 px-3 me-2 rounded bg-green-200 hover:cursor-pointer">
-                    <i className="fas fa-edit text-green-800"></i>
+                    <i className="fas fa-eye text-green-800"></i>
                   </span>
 
                   <span className="py-2 px-3 rounded bg-red-200 hover:cursor-pointer">
