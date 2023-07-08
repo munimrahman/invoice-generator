@@ -17,6 +17,7 @@ import AddProduct from "./Pages/Products/AddProduct";
 import AddCustomer from "./Pages/Customers/AddCustomer";
 import EditProduct from "./Pages/Products/EditProduct";
 import EditCustomer from "./Pages/Customers/EditCustomer";
+import InvoiceDetails from "./Pages/Invoice/InvoiceDetails";
 
 function App() {
   const router = createBrowserRouter([
@@ -45,6 +46,10 @@ function App() {
         {
           path: "/dashboard/invoices",
           element: <Invoices />,
+        },
+        {
+          path: "/dashboard/invoices/:id",
+          element: <InvoiceDetails />,
         },
         {
           path: "/dashboard/create-invoice",

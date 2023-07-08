@@ -119,6 +119,7 @@ const CreateInvoice = () => {
               className="input input-sm mb-1 input-bordered focus:outline-none w-full max-w-xs"
               value={customer.name}
               onChange={(e) => handleCustomerChange("name", e.target.value)}
+              required
             />
             <br />
             <input
@@ -127,6 +128,7 @@ const CreateInvoice = () => {
               className="input input-sm mb-1 input-bordered focus:outline-none w-full max-w-xs"
               value={customer.email}
               onChange={(e) => handleCustomerChange("email", e.target.value)}
+              required
             />
             <br />
             <input
@@ -135,6 +137,7 @@ const CreateInvoice = () => {
               className="input input-sm mb-1 input-bordered focus:outline-none w-full max-w-xs"
               value={customer.mobile}
               onChange={(e) => handleCustomerChange("mobile", e.target.value)}
+              required
             />
             <br />
             <input
@@ -143,6 +146,7 @@ const CreateInvoice = () => {
               className="input input-sm input-bordered focus:outline-none w-full max-w-xs"
               value={customer.address}
               onChange={(e) => handleCustomerChange("address", e.target.value)}
+              required
             />
           </div>
           <div>

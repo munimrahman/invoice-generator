@@ -61,9 +61,12 @@ const Invoices = () => {
                   </td>
                 )}
                 <th className="text-center">
-                  <span className="py-2 px-3 me-2 rounded bg-green-200 hover:cursor-pointer">
+                  <Link
+                    to={"/dashboard/invoices/id"}
+                    className="py-2 px-3 me-2 rounded bg-green-200 hover:cursor-pointer"
+                  >
                     <i className="fas fa-eye text-green-800"></i>
-                  </span>
+                  </Link>
 
                   <span className="py-2 px-3 rounded bg-red-200 hover:cursor-pointer">
                     <i className="fas fa-trash-alt text-red-600" />
