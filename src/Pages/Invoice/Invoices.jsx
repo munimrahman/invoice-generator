@@ -40,10 +40,10 @@ const Invoices = () => {
             </tr>
           </thead>
           <tbody>
-            {orders?.map(({ _id, customer: { name } }, i) => (
+            {orders?.map(({ _id, invoiceNumber, customer: { name } }, i) => (
               <tr key={_id}>
                 <th>{i + 1}</th>
-                <td>INV00{i + 1}</td>
+                <td>INV00{invoiceNumber}</td>
                 <td>{name}</td>
                 <td>01548726934</td>
                 <td>254</td>
@@ -62,7 +62,7 @@ const Invoices = () => {
                 )}
                 <th className="text-center">
                   <Link
-                    to={"/dashboard/invoices/id"}
+                    to={`/dashboard/invoices/${_id}`}
                     className="py-2 px-3 me-2 rounded bg-green-200 hover:cursor-pointer"
                   >
                     <i className="fas fa-eye text-green-800"></i>

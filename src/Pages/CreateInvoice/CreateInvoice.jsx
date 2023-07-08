@@ -1,7 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import AutoComplete from "../../components/AutoComplete/AutoComplete";
-import { useAddInvoiceMutation } from "../../features/invoice/invoiceApi";
+import {
+  useAddInvoiceMutation,
+  useGetInvoicesQuery,
+} from "../../features/invoice/invoiceApi";
 
 const countries = ["Africa", "Armenia", "Canada", "United States"];
 
@@ -36,6 +39,9 @@ const todayDate = (addDay) => {
 };
 
 const CreateInvoice = () => {
+  const { data: { data: { count, orders = [] } = {} } = {} } =
+    useGetInvoicesQuery();
+
   const [addInvoice, { isSuccess, isError }] = useAddInvoiceMutation();
   const [note, setNote] = useState();
   const [customer, setCustomer] = useState(customerInitialData);
@@ -45,6 +51,9 @@ const CreateInvoice = () => {
   const [date, setDate] = useState(todayDate(0));
   const [dueDate, setDueDate] = useState(todayDate(2));
   const [invoiceItems, setInvoiceItems] = useState(initialInvoiceItems);
+
+  const invNum = orders.map((order) => order.invoiceNumber);
+  const maxNum = Math.max(...invNum);
 
   const handleAddRow = () => {
     setInvoiceItems([
@@ -77,6 +86,7 @@ const CreateInvoice = () => {
 
   const handleSubmit = () => {
     const invoiceData = {
+      invoiceNumber: maxNum + 1,
       customer,
       products: invoiceItems,
       subTotal,
@@ -106,7 +116,7 @@ const CreateInvoice = () => {
           <h2 className="text-4xl text-primary">InvoicePro</h2>
           <div>
             <h2 className="text-2xl">INVOICE</h2>
-            <p className="text-end">#INV001</p>
+            <p className="text-end">#INV00{maxNum + 1}</p>
           </div>
         </div>
         <div className="divider"></div>

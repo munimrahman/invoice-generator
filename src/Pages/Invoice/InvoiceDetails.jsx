@@ -12,9 +12,27 @@ import {
 } from "@react-pdf/renderer";
 import { saveAs } from "file-saver";
 import ReactToPrint from "react-to-print";
+import { useGetSingleInvoiceQuery } from "../../features/invoice/invoiceApi";
+import { useParams } from "react-router-dom";
 
 const InvoiceDetails = () => {
   const ref = useRef();
+  const { id } = useParams();
+  const {
+    data: {
+      data: {
+        invoiceNumber,
+        customer: { name, mobile, email, address } = {},
+        products = [],
+        date,
+        dueDate,
+        subTotal,
+        discount,
+        total,
+        note,
+      } = {},
+    } = {},
+  } = useGetSingleInvoiceQuery(id);
 
   return (
     <div className="px-8 py-3 bg-[#F1F5F9] min-h-screen">
@@ -36,17 +54,17 @@ const InvoiceDetails = () => {
             <h2 className="text-4xl text-primary">InvoicePro</h2>
             <div>
               <h2 className="text-2xl">INVOICE</h2>
-              <p className="text-end">#INV001</p>
+              <p className="text-end">#INV00{invoiceNumber}</p>
             </div>
           </div>
           <div className="divider"></div>
           <div className="flex items-end justify-between">
             <div>
               <h3 className="text-lg mb-1">Bill To</h3>
-              <p className="text-sm">MD Munim Rahman</p>
-              <p className="text-sm">munimrh@gmail.xom</p>
-              <p className="text-sm">01929645146</p>
-              <p className="text-sm">Barishal, Bangladesh</p>
+              <p className="text-sm">{name}</p>
+              <p className="text-sm">{email}</p>
+              <p className="text-sm">{mobile}</p>
+              <p className="text-sm">{address}</p>
             </div>
             <div>
               <h3 className="text-lg mb-1">Bill From</h3>
@@ -57,8 +75,8 @@ const InvoiceDetails = () => {
             </div>
           </div>
           <div>
-            <p className="text-sm">Date: 06/02/2023</p>
-            <p className="text-sm">Due Date: 06/02/2023</p>
+            <p className="text-sm">Date: {date}</p>
+            <p className="text-sm">Due Date: {dueDate}</p>
           </div>
           <div className="divider mb-0 mt-2"></div>
           <div className="">
@@ -75,24 +93,26 @@ const InvoiceDetails = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {[1, 2, 3, 4, 5].map((r, i) => (
-                    <tr key={i} className="text-center">
-                      <th>{i + 1}</th>
-                      <td>
-                        <p>Product One</p>
-                      </td>
+                  {products.map(
+                    ({ name, quantity, productPrice, amount }, i) => (
+                      <tr key={i} className="text-center">
+                        <th>{i + 1}</th>
+                        <td>
+                          <p>{name}</p>
+                        </td>
 
-                      <td>
-                        <p>2</p>
-                      </td>
-                      <td>
-                        <p>25</p>
-                      </td>
-                      <td>
-                        <p>50</p>
-                      </td>
-                    </tr>
-                  ))}
+                        <td>
+                          <p>{quantity}</p>
+                        </td>
+                        <td>
+                          <p>{productPrice}</p>
+                        </td>
+                        <td>
+                          <p>{amount}</p>
+                        </td>
+                      </tr>
+                    )
+                  )}
                 </tbody>
               </table>
             </div>
@@ -111,21 +131,21 @@ const InvoiceDetails = () => {
                     <tr>
                       <td>Sub Total</td>
                       <td>
-                        <p className="ms-8">24</p>
+                        <p className="ms-8">{subTotal}</p>
                       </td>
                     </tr>
                     {/* row 2 */}
                     <tr>
                       <td>Discount</td>
                       <td>
-                        <p className="ms-8">4</p>
+                        <p className="ms-8">{discount}</p>
                       </td>
                     </tr>
                     {/* row 3 */}
                     <tr>
                       <td>Total</td>
                       <td>
-                        <p className="ms-8">20</p>
+                        <p className="ms-8">{total}</p>
                       </td>
                     </tr>
                   </tbody>
