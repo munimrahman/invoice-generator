@@ -1,7 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
 import Home from "./Pages/Home/Home";
-import About from "./Pages/About/About";
 import DashboardLayout from "./components/Layout/DashboardLayout";
 import MainLayout from "./components/Layout/MainLayout.jsx";
 import DashboardHome from "./Pages/DashboardHome/DashboardHome";
@@ -18,6 +17,9 @@ import AddCustomer from "./Pages/Customers/AddCustomer";
 import EditProduct from "./Pages/Products/EditProduct";
 import EditCustomer from "./Pages/Customers/EditCustomer";
 import InvoiceDetails from "./Pages/Invoice/InvoiceDetails";
+import FreeInvoice from "./Pages/CreateInvoice/FreeInvoice";
+import Login from "./Pages/Login/Login";
+import SignUp from "./Pages/SignUp/SignUp";
 
 function App() {
   const router = createBrowserRouter([
@@ -30,8 +32,16 @@ function App() {
           element: <Home />,
         },
         {
-          path: "/about",
-          element: <About />,
+          path: "/create-invoice",
+          element: <FreeInvoice />,
+        },
+        {
+          path: "/log-in",
+          element: <Login />,
+        },
+        {
+          path: "/sign-up",
+          element: <SignUp />,
         },
       ],
     },

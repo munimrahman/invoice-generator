@@ -40,40 +40,51 @@ const Invoices = () => {
             </tr>
           </thead>
           <tbody>
-            {orders?.map(({ _id, invoiceNumber, customer: { name } }, i) => (
-              <tr key={_id}>
-                <th>{i + 1}</th>
-                <td>INV00{invoiceNumber}</td>
-                <td>{name}</td>
-                <td>01548726934</td>
-                <td>254</td>
-                {i % 2 === 0 ? (
-                  <td>
-                    <span className="bg-green-100 font-bold p-1 rounded text-green-700 text-xs">
-                      PAID
-                    </span>
-                  </td>
-                ) : (
-                  <td>
-                    <span className="bg-red-100 font-bold p-1 rounded text-red-500 text-xs">
-                      UNPAID
-                    </span>
-                  </td>
-                )}
-                <th className="text-center">
-                  <Link
-                    to={`/dashboard/invoices/${_id}`}
-                    className="py-2 px-3 me-2 rounded bg-green-200 hover:cursor-pointer"
-                  >
-                    <i className="fas fa-eye text-green-800"></i>
-                  </Link>
+            {orders?.map(
+              (
+                {
+                  _id,
+                  invoiceNumber,
+                  customer: { name },
+                  total,
+                  paymentStatus,
+                },
+                i
+              ) => (
+                <tr key={_id}>
+                  <th>{i + 1}</th>
+                  <td>INV00{invoiceNumber}</td>
+                  <td>{name}</td>
+                  <td>01548726934</td>
+                  <td>{total}</td>
+                  {paymentStatus === "paid" ? (
+                    <td>
+                      <span className="bg-green-100 font-bold p-1 rounded text-green-700 text-xs">
+                        PAID
+                      </span>
+                    </td>
+                  ) : (
+                    <td>
+                      <span className="bg-red-100 font-bold p-1 rounded text-red-500 text-xs">
+                        UNPAID
+                      </span>
+                    </td>
+                  )}
+                  <th className="text-center">
+                    <Link
+                      to={`/dashboard/invoices/${_id}`}
+                      className="py-2 px-3 me-2 rounded bg-green-200 hover:cursor-pointer"
+                    >
+                      <i className="fas fa-eye text-green-800"></i>
+                    </Link>
 
-                  <span className="py-2 px-3 rounded bg-red-200 hover:cursor-pointer">
-                    <i className="fas fa-trash-alt text-red-600" />
-                  </span>
-                </th>
-              </tr>
-            ))}
+                    <span className="py-2 px-3 rounded bg-red-200 hover:cursor-pointer">
+                      <i className="fas fa-trash-alt text-red-600" />
+                    </span>
+                  </th>
+                </tr>
+              )
+            )}
           </tbody>
         </table>
       </div>

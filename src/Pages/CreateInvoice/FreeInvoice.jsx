@@ -38,7 +38,7 @@ const todayDate = (addDay) => {
   return formattedDate;
 };
 
-const CreateInvoice = () => {
+const FreeInvoice = () => {
   const { data: { data: { count, orders = [] } = {} } = {} } =
     useGetInvoicesQuery();
 
@@ -101,30 +101,78 @@ const CreateInvoice = () => {
   };
   console.log(paymentStatus);
   return (
-    <div className="px-8 py-3 bg-[#F1F5F9] min-h-screen">
-      <div className="text-sm breadcrumbs">
-        <ul>
-          <li>
-            <a>Dashboard</a>
-          </li>
-          <li>Create Invoice</li>
-        </ul>
-      </div>
+    <div className="px-8 md:px-28 py-3 bg-[#F1F5F9] min-h-screen">
       <div className="flex items-center justify-between">
         <h2 className="text-3xl underline">Create Invoice</h2>
+        <p className="bg-red-100 text-red-500 py-2 px-3 rounded-md">
+          Please Log In For Save Your Invoice
+        </p>
       </div>
       <div className="bg-base-100 rounded py-10 px-16 mt-2">
         <div className="flex justify-between items-start">
-          <h2 className="text-4xl text-primary">InvoicePro</h2>
+          <input
+            type="text"
+            placeholder="#INV001"
+            className="input mb-1 input-bordered focus:outline-none w-full max-w-xs text-4xl text-primary"
+            value={"CompanyName"}
+            //   value={customer.name}
+            required
+          />
+
           <div>
-            <h2 className="text-2xl">INVOICE</h2>
-            <p className="text-end">#INV00{maxNum + 1}</p>
+            <h2 className="text-2xl text-right">INVOICE</h2>
+            <input
+              type="text"
+              placeholder="#INV001"
+              className="input input-sm mb-1 input-bordered focus:outline-none w-full max-w-xs text-right"
+              value={"#INV001"}
+              //   value={customer.name}
+              required
+            />
           </div>
         </div>
         <div className="divider"></div>
         <div className="flex items-end justify-between">
           <div>
             <h3 className="text-lg mb-1">Bill To</h3>
+            <input
+              type="text"
+              placeholder="Name"
+              className="input input-sm mb-1 input-bordered focus:outline-none w-full max-w-xs"
+              value={customer.name}
+              onChange={(e) => handleCustomerChange("name", e.target.value)}
+              required
+            />
+            <br />
+            <input
+              type="text"
+              placeholder="Email"
+              className="input input-sm mb-1 input-bordered focus:outline-none w-full max-w-xs"
+              value={customer.email}
+              onChange={(e) => handleCustomerChange("email", e.target.value)}
+              required
+            />
+            <br />
+            <input
+              type="text"
+              placeholder="Mobile"
+              className="input input-sm mb-1 input-bordered focus:outline-none w-full max-w-xs"
+              value={customer.mobile}
+              onChange={(e) => handleCustomerChange("mobile", e.target.value)}
+              required
+            />
+            <br />
+            <input
+              type="text"
+              placeholder="Address"
+              className="input input-sm input-bordered focus:outline-none w-full max-w-xs"
+              value={customer.address}
+              onChange={(e) => handleCustomerChange("address", e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <h3 className="text-lg mb-1">Bill From</h3>
             <input
               type="text"
               placeholder="Name"
@@ -206,11 +254,14 @@ const CreateInvoice = () => {
                   <tr key={i}>
                     <th>{i + 1}</th>
                     <td>
-                      <AutoComplete
-                        index={i}
-                        value={r.name}
-                        setValue={handleProductChange}
-                        items={countries}
+                      <input
+                        type="number"
+                        placeholder="1"
+                        className="input input-sm mb-1 input-bordered focus:outline-none w-full max-w-xs ms-5"
+                        value={r.quantity}
+                        onChange={(e) =>
+                          handleProductChange(i, "quantity", e.target.value)
+                        }
                       />
                     </td>
 
@@ -280,16 +331,6 @@ const CreateInvoice = () => {
               value={note}
               onChange={(e) => setNote(e.target.value)}
             ></textarea>
-            <div className="flex">
-              <p className="text-sm text-gray-500 me-2">Payment Status</p>
-              <select
-                onChange={(e) => setPaymentStatus(e.target.value)}
-                className="select select-bordered w-full max-w-xs focus:outline-none"
-              >
-                <option value={"paid"}>Paid</option>
-                <option value={"unpaid"}>Unpaid</option>
-              </select>
-            </div>
           </div>
           <div className="flex flex-col items-end">
             <div className="overflow-x-auto">
@@ -346,9 +387,6 @@ const CreateInvoice = () => {
 
         <div className="flex justify-center mt-5">
           <button onClick={handleSubmit} className="btn btn-primary me-2">
-            Save
-          </button>
-          <button type="submit" className="btn btn-neutral">
             Print
           </button>
         </div>
@@ -357,4 +395,4 @@ const CreateInvoice = () => {
   );
 };
 
-export default CreateInvoice;
+export default FreeInvoice;
