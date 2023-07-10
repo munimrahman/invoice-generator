@@ -1,16 +1,5 @@
 /* eslint-disable no-unused-vars */
 import React, { useRef } from "react";
-import {
-  Page,
-  Text,
-  View,
-  Document,
-  StyleSheet,
-  renderToFile,
-  usePDF,
-  pdf,
-} from "@react-pdf/renderer";
-import { saveAs } from "file-saver";
 import ReactToPrint from "react-to-print";
 import { useGetSingleInvoiceQuery } from "../../features/invoice/invoiceApi";
 import { useParams } from "react-router-dom";
