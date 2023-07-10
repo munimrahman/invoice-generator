@@ -414,7 +414,7 @@ const FreeInvoice = () => {
         </div>
       </div>
       {/* print version */}
-      <div className="px-8 py-3 bg-[#F1F5F9] min-h-screen ">
+      <div className="px-8 py-3 bg-[#F1F5F9] min-h-screen hidden">
         <div className="bg-base-100 rounded py-10 px-16 mt-2">
           {/*  */}
           <div className="print:px-8 print:py-12" ref={ref}>
